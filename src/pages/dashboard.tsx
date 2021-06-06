@@ -1,93 +1,85 @@
-import { Box, Flex, SimpleGrid, Text, theme } from "@chakra-ui/react"
-import dynamic from 'next/dynamic'
-import { Sidebar } from "../components/Form/Sidebar";
+import { Box, Flex, SimpleGrid, Text, theme } from "@chakra-ui/react";
+import dynamic from "next/dynamic";
+import { Sidebar } from "../components/Sidebar";
 import Header from "../components/Header";
 
-const Chart = dynamic(() => import('react-apexcharts'), {
-    ssr: false,
+const Chart = dynamic(() => import("react-apexcharts"), {
+  ssr: false,
 });
 
 const options = {
-    chart:{
-        toolbar: {
-            show: false,
-        },
-        zoom: {
-            enabled: false,
-        },
-        foreColor: theme.colors.gray[500],
+  chart: {
+    toolbar: {
+      show: false,
     },
-    grid: {
-        show: false,
+    zoom: {
+      enabled: false,
     },
-    dataLabels: {
-        enabled: false,
+    foreColor: theme.colors.gray[500],
+  },
+  grid: {
+    show: false,
+  },
+  dataLabels: {
+    enabled: false,
+  },
+  tooltip: {
+    enabled: false,
+  },
+  xaxis: {
+    type: "datetime",
+    axisBorder: {
+      color: theme.colors.gray[600],
     },
-    tooltip: {
-        enabled: false,
+    axisTicks: {
+      colors: theme.colors.gray[600],
     },
-    xaxis: {
-        type: 'datetime',
-        axisBorder: {
-            color: theme.colors.gray[600]
-        },
-        axisTicks: {
-            colors: theme.colors.gray[600]
-        },
-        categories: [
-            '2021-03-18T00:00:00.000Z',
-            '2021-03-19:00:00.000Z',
-            '2021-03-20:00:00.000Z',
-            '2021-03-21:00:00.000Z',
-            '2021-03-22:00:00.000Z',
-            '2021-03-23:00:00.000Z',
-            '2021-03-24:00:00.000Z',
-        ]
+    categories: [
+      "2021-03-18T00:00:00.000Z",
+      "2021-03-19:00:00.000Z",
+      "2021-03-20:00:00.000Z",
+      "2021-03-21:00:00.000Z",
+      "2021-03-22:00:00.000Z",
+      "2021-03-23:00:00.000Z",
+      "2021-03-24:00:00.000Z",
+    ],
+  },
+  fill: {
+    opacity: 0.3,
+    type: "gradient",
+    gradient: {
+      shade: "dark",
+      opacityFrom: 0.7,
+      opacityTo: 0.7,
     },
-    fill: {
-        opacity: 0.3,
-        type: 'gradient',
-        gradient: {
-            shade: 'dark',
-            opacityFrom: 0.7,
-            opacityTo: 0.7,
-        }
-    }
+  },
 };
 
-const series = [
-    { name: 'series1', data: [31, 120, 10, 28, 51, 18, 109]}
-];
+const series = [{ name: "series1", data: [31, 120, 10, 28, 51, 18, 109] }];
 
 export default function Dashboard() {
-    return (
-        <Flex direction="column" h="100vh">
-            <Header />
+  return (
+    <Flex direction="column" h="100vh">
+      <Header />
 
-            <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
-                <Sidebar />
+      <Flex w="100%" my="6" maxWidth={1480} mx="auto" px="6">
+        <Sidebar />
 
-                <SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start"> 
-                    <Box
-                        p="8"
-                        bg="gray.800"
-                        borderRadius={8}
-                        pb="4"
-                    >
-                        <Text fontSize="lg" mb="4">Inscritos da semana</Text>
-                        <Chart options={options} series={series} type="area" height={160} />
-                    </Box>
-                    <Box
-                        p="8"
-                        bg="gray.800"
-                        borderRadius={8}
-                        pb="4"
-                    >
-                        <Text fontSize="lg" mb="4">Taxa de abertura</Text>
-                        <Chart options={options} series={series} type="area" height={160} />
-                    </Box>
-                </SimpleGrid>
-            </Flex>
-        </Flex>
-    )
+        <SimpleGrid flex="1" gap="4" minChildWidth="320px" align="flex-start">
+          <Box p="8" bg="gray.800" borderRadius={8} pb="4">
+            <Text fontSize="lg" mb="4">
+              Inscritos da semana
+            </Text>
+            <Chart options={options} series={series} type="area" height={160} />
+          </Box>
+          <Box p="8" bg="gray.800" borderRadius={8} pb="4">
+            <Text fontSize="lg" mb="4">
+              Taxa de abertura
+            </Text>
+            <Chart options={options} series={series} type="area" height={160} />
+          </Box>
+        </SimpleGrid>
+      </Flex>
+    </Flex>
+  );
 }
