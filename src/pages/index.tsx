@@ -1,4 +1,5 @@
 import { Flex, Button, Stack } from "@chakra-ui/react";
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "../components/Form/Input";
 
@@ -9,6 +10,12 @@ type SignInFormData = {
 
 export default function SignIn() {
   const { register, handleSubmit, formState } = useForm();
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/users")
+      .then((response) => response.json())
+      .then((data) => console.log("data", data));
+  }, []);
 
   const handleSignIn: SubmitHandler<SignInFormData> = async (values) => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
